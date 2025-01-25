@@ -5,6 +5,8 @@ local opts = {
     "eslint-lsp",
     "prettierd",
     "eslint_d",
+    "vue-language-server",
+    "emmet-ls",
   }
 }
 
