@@ -10,7 +10,7 @@ if not vim.uv.fs_stat(lazypath) then
 end
 
 vim.opt.rtp:prepend(lazypath)
-vim.g.blamer_enabled = true
+vim.wo.relativenumber = true
 
 local lazy_config = require "configs.lazy"
 
@@ -31,6 +31,7 @@ dofile(vim.g.base46_cache .. "defaults")
 dofile(vim.g.base46_cache .. "statusline")
 
 require "options"
+require "mappings"
 require "nvchad.autocmds"
 
 vim.schedule(function()
