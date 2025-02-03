@@ -79,4 +79,9 @@ return {
     cmd = "Trouble",
     keys = require "plugins.configs.trouble",
   },
+
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false,
+  },
 }

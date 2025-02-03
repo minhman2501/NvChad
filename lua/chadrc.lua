@@ -2,6 +2,7 @@
 local M = {}
 
 M.base46 = {
-  theme = "radium",
+  theme = "kanagawa",
+  transparency = true,
 }
 return M
