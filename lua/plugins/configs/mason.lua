@@ -6,8 +6,9 @@ local opts = {
     "prettierd",
     "eslint_d",
     "vue-language-server",
+    "svelte-language-server",
     "emmet-ls",
-  }
+  },
 }
 
 return opts
