@@ -8,7 +8,10 @@ local opts = {
     "vue-language-server",
     "svelte-language-server",
     "emmet-ls",
-  },
+    "pyright",
+    "django-template-lsp",
+    "pylint",
+  }
 }
 
 return opts
