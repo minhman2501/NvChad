@@ -1,7 +1,8 @@
 local lspconfig = require "lspconfig"
 local base = require "nvchad.configs.lspconfig"
 
-local servers = { "lua_ls", "ts_ls", "emmet_ls", "tailwindcss", "eslint", "volar", "svelte", "cssls", "pyright", "djlsp" }
+local servers =
+  { "lua_ls", "ts_ls", "emmet_ls", "tailwindcss", "eslint", "volar", "svelte", "cssls", "pyright", "djlsp" }
 
 lspconfig.volar.setup {
   -- add filetypes for typescript, javascript and vue
@@ -32,6 +33,7 @@ end
 lspconfig.tailwindcss.setup {
   filetypes = { "javascriptreact", "typescriptreact" },
 }
+
 lspconfig.ts_ls.setup {
   init_options = {
     plugins = {
@@ -46,5 +48,6 @@ lspconfig.ts_ls.setup {
     "javascript",
     "typescript",
     "vue",
+    "svelte",
   },
 }
