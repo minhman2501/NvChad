@@ -136,7 +136,7 @@ return {
     ---@type snacks.Config
     opts = require "plugins.configs.snacks",
   },
-  -- lazy.nvim
+
   {
     "folke/noice.nvim",
     event = "VeryLazy",
