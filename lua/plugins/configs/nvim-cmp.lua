@@ -8,10 +8,6 @@ local opts = vim.tbl_deep_extend("force", nvchad_cmp, {
     { name = "buffer" }, -- Buffer words
     { name = "path" }, -- Filesystem paths
   }),
-
-  experimental = {
-    ghost_text = true, -- 👻 show inline ghost text (good with Codeium)
-  },
 })
 
 return opts
