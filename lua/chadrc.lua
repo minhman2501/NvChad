@@ -4,7 +4,6 @@ local M = {
     theme = "palenight",
     transparency = true,
   },
-
   ui = {
     telescope = { style = "borderless" }, -- borderless / bordered
 
