@@ -1,5 +1,7 @@
-vim.diagnostic.config({ virtual_lines = true })
-vim.diagnostic.config({ virtual_text = true })
+vim.diagnostic.config {
+  virtual_lines = false,
+  virtual_text = true,
+}
 
 local keys = {
   {
@@ -16,16 +18,6 @@ local keys = {
     "<leader>cs",
     "<cmd>Trouble symbols toggle focus=false<cr>",
     desc = "Symbols (Trouble)",
-  },
-  {
-    "<leader>cl",
-    "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-    desc = "LSP Definitions / references / ... (Trouble)",
-  },
-  {
-    "<leader>xL",
-    "<cmd>Trouble loclist toggle<cr>",
-    desc = "Location List (Trouble)",
   },
   {
     "<leader>xQ",

@@ -1,53 +1,48 @@
-local lspconfig = require "lspconfig"
 local base = require "nvchad.configs.lspconfig"
 
-local servers =
-  { "lua_ls", "ts_ls", "emmet_ls", "tailwindcss", "eslint", "volar", "svelte", "cssls", "pyright", "djlsp" }
-
-lspconfig.volar.setup {
-  -- add filetypes for typescript, javascript and vue
-  filetypes = { "vue" },
-  single_file_support = false,
-  init_options = {
-    typescript = {
-      tsdk = "~/.local/share/NvChad/mason/packages/vue-language-server/node_modules/typescript/lib/",
-    },
-  },
-  on_new_config = function(new_config, new_root_dir)
-    local lib_path = vim.fs.find("node_modules/typescript/lib", { path = new_root_dir, upward = true })[1]
-    if lib_path then
-      new_config.init_options.typescript.tsdk = lib_path
-    end
-  end,
+local servers = {
+  "lua_ls",
+  "ts_ls",
+  "emmet_ls",
+  "tailwindcss",
+  "eslint",
+  "svelte",
+  "cssls",
+  "pyright",
+  "djlsp",
 }
 
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = base.on_attach,
-    on_init = base.on_init,
-    capabilities = base.capabilities,
-  }
-end
+-- Enable all servers
+vim.lsp.enable(servers)
 
-lspconfig.tailwindcss.setup {
+-- Global config (like your base)
+vim.lsp.config("*", {
+  on_attach = base.on_attach,
+  on_init = base.on_init,
+  capabilities = base.capabilities,
+})
+
+-- Tailwind override
+vim.lsp.config("tailwindcss", {
   filetypes = { "javascriptreact", "typescriptreact" },
-}
+})
 
-lspconfig.ts_ls.setup {
+-- TS override
+vim.lsp.config("ts_ls", {
   init_options = {
     plugins = {
       {
         name = "@vue/typescript-plugin",
         location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-        languages = { "typescript", "vue" },
+        languages = { "typescript" },
       },
     },
   },
   filetypes = {
     "javascript",
     "typescript",
-    "vue",
+    "typescriptreact",
+    "javascriptreact",
     "svelte",
   },
-}
+})

@@ -1,5 +1,6 @@
 ---@module 'blink.cmp'
 ---@type blink.cmp.Config
+
 local opts = {
   snippets = { preset = "luasnip" },
   cmdline = { enabled = true },
