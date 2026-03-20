@@ -2,10 +2,9 @@ local base = require "nvchad.configs.lspconfig"
 
 local servers = {
   "lua_ls",
-  "vtsls", -- ✅ replaced ts_ls
+  "vtsls",
   "emmet_ls",
   "tailwindcss",
-  "eslint",
   "svelte",
   "cssls",
   "pyright",

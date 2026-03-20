@@ -1,7 +1,7 @@
 ---@type ChadrcConfig
 local M = {
   base46 = {
-    theme = "palenight",
+    theme = "gruvchad",
     transparency = true,
   },
   ui = {
