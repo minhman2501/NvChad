@@ -2,7 +2,7 @@ local base = require "nvchad.configs.lspconfig"
 
 local servers = {
   "lua_ls",
-  "ts_ls",
+  "vtsls", -- ✅ replaced ts_ls
   "emmet_ls",
   "tailwindcss",
   "eslint",
@@ -15,7 +15,7 @@ local servers = {
 -- Enable all servers
 vim.lsp.enable(servers)
 
--- Global config (like your base)
+-- Global config
 vim.lsp.config("*", {
   on_attach = base.on_attach,
   on_init = base.on_init,
@@ -27,22 +27,33 @@ vim.lsp.config("tailwindcss", {
   filetypes = { "javascriptreact", "typescriptreact" },
 })
 
--- TS override
-vim.lsp.config("ts_ls", {
+-- ✅ vtsls override (important)
+vim.lsp.config("vtsls", {
+  settings = {
+    typescript = {
+      tsserver = {
+        maxTsServerMemory = 4096, -- 🔥 huge perf boost
+      },
+    },
+  },
+
+  -- Vue support (same idea as before)
   init_options = {
     plugins = {
       {
         name = "@vue/typescript-plugin",
         location = "/usr/local/lib/node_modules/@vue/typescript-plugin",
-        languages = { "typescript" },
+        languages = { "typescript", "javascript" }, -- 🔥 include js too
       },
     },
   },
+
   filetypes = {
     "javascript",
     "typescript",
-    "typescriptreact",
     "javascriptreact",
+    "typescriptreact",
+    "vue", -- ✅ important for Vue
     "svelte",
   },
 })
