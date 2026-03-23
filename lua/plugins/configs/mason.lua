@@ -10,6 +10,7 @@ local opts = {
     "pyright",
     "django-template-lsp",
     "pylint",
+    "copilot",
   },
 }
 

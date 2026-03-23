@@ -3,40 +3,77 @@
 
 local opts = {
   snippets = { preset = "luasnip" },
-  cmdline = { enabled = true },
-  sources = {
-    default = { "copilot", "lsp", "path", "snippets", "buffer" },
-    providers = {
-      copilot = {
-        module = "blink-copilot",
-        name = "copilot",
-        score_offset = 300,
-        async = true,
-      },
-    },
-  },
-  fuzzy = { implementation = "prefer_rust_with_warning" },
-  keymap = { preset = "default" },
+
   appearance = {
-    use_nvim_cmp_as_default = false,
+    -- Link to NvChad's existing Cmp highlight groups
+    use_nvim_cmp_as_default = true,
     nerd_font_variant = "mono",
   },
+
   completion = {
-    completion = {
-      menu = {
-        draw = {
-          columns = {
-            { "kind_icon" },
-            { "label", "label_description", gap = 1 },
+    menu = {
+      border = "rounded",
+      draw = {
+        -- Correct "table of tables" structure
+        columns = {
+          { "kind_icon" },
+          { "label", "label_description", gap = 1 },
+          { "source_name" },
+        },
+        components = {
+          kind_icon = {
+            ellipsis = false,
+            text = function(ctx)
+              -- Safer module loading to prevent "module not found" crashes
+              local status, tailwind = pcall(require, "blink.cmp.completion.windows.render.tailwind")
+              if status and tailwind.get_hex_color(ctx.item) then
+                return "󱓻 "
+              end
+              return ctx.kind_icon .. ctx.icon_gap
+            end,
+            highlight = function(ctx)
+              return "BlinkCmpKind" .. ctx.kind
+            end,
+          },
+          source_name = {
+            width = { max = 5 },
+            text = function(ctx)
+              local names = { lsp = "LSP", snippets = "SNP", buffer = "BUF", copilot = "AI" }
+              return "[" .. (names[ctx.source_name:lower()] or ctx.source_name:sub(1, 3)) .. "]"
+            end,
+            highlight = "BlinkCmpSource",
           },
         },
       },
     },
     documentation = {
       auto_show = true,
-      auto_show_delay_ms = 100,
-      window = { border = "single" },
+      window = { border = "rounded" },
     },
+    ghost_text = {
+      enabled = true,
+      -- CRITICAL: This allows the multiline AI ghost text to stay
+      -- visible even when the LSP menu is open.
+      show_with_menu = true,
+    },
+  },
+
+  sources = {
+    default = { "lsp", "copilot", "path", "snippets", "buffer" },
+    providers = {
+      copilot = {
+        module = "blink-copilot",
+        name = "copilot",
+        score_offset = 100,
+        async = true,
+      },
+    },
+  },
+
+  keymap = {
+    preset = "enter",
+    ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+    ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
   },
 }
 

@@ -1,4 +1,5 @@
 local base = require "nvchad.configs.lspconfig"
+local capabilities = require("blink.cmp").get_lsp_capabilities()
 
 local servers = {
   "lua_ls",
@@ -9,6 +10,7 @@ local servers = {
   "cssls",
   "pyright",
   "djlsp",
+  "copilot",
 }
 
 -- Enable all servers
@@ -18,7 +20,7 @@ vim.lsp.enable(servers)
 vim.lsp.config("*", {
   on_attach = base.on_attach,
   on_init = base.on_init,
-  capabilities = base.capabilities,
+  capabilities = capabilities,
 })
 
 -- Tailwind override
@@ -53,6 +55,15 @@ vim.lsp.config("vtsls", {
     "javascriptreact",
     "typescriptreact",
     "vue",
-    "svelte",
+  },
+})
+
+vim.lsp.config("svelte", {
+  settings = {
+    svelte = {
+      plugin = {
+        svelte = { format = { enable = false } }, -- We use none-ls for this
+      },
+    },
   },
 })

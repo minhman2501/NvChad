@@ -1,79 +1,71 @@
-local null_ls = require("null-ls")
+local null_ls = require "null-ls"
+local b = null_ls.builtins
 
 local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
-local AUTOSAVE_DELAY = 500
+
+-- Helper to detect config files in the project root
+local has_file = function(files)
+  return function(utils)
+    return utils.root_has_file(files)
+  end
+end
 
 local opts = {
   sources = {
-    -- ✅ Prettier (personal projects)
-    null_ls.builtins.formatting.prettierd.with({
+    -- 1. Prettierd: Runs ONLY if prettier config exists
+    b.formatting.prettierd.with {
+      condition = has_file { ".prettierrc", ".prettierrc.json", "prettier.config.js" },
+    },
+
+    -- 2. ESLint Diagnostics: Always show linting errors
+    require("none-ls.diagnostics.eslint_d").with {
+      condition = has_file { ".eslintrc.js", ".eslintrc.cjs", "eslint.config.js" },
+    },
+
+    -- 3. ESLint Formatting: The "Fallback" Formatter
+    -- This only activates if ESLint exists but Prettier DOES NOT.
+    require("none-ls.formatting.eslint_d").with {
       condition = function(utils)
-        return utils.root_has_file({
-          ".prettierrc",
-          ".prettierrc.json",
-          "prettier.config.js",
-        })
+        local has_eslint = utils.root_has_file { ".eslintrc.js", ".eslintrc.cjs", "eslint.config.js" }
+        local has_prettier = utils.root_has_file { ".prettierrc", ".prettierrc.json", "prettier.config.js" }
+        return has_eslint and not has_prettier
       end,
-    }),
+    },
 
-    -- ✅ ESLint diagnostics (ALWAYS useful)
-    require("none-ls.diagnostics.eslint_d"),
-
-    -- ⚠️ ESLint formatter (ONLY if no prettier)
-    require("none-ls.formatting.eslint_d").with({
-      condition = function(utils)
-        return not utils.root_has_file({
-          ".prettierrc",
-          ".prettierrc.json",
-          "prettier.config.js",
-        })
-      end,
-    }),
-
-    null_ls.builtins.formatting.stylua,
-    null_ls.builtins.formatting.isort,
-    null_ls.builtins.formatting.black,
+    -- standard tools for other parts of your NvChad IDE
+    b.formatting.stylua,
+    b.formatting.black,
+    b.formatting.isort,
   },
 
   on_attach = function(client, bufnr)
-    -- ❌ disable other formatters (important!)
-    if client.name == "vtsls" or client.name == "tsserver" then
-      client.server_capabilities.documentFormattingProvider = false
+    -- VETERAN MOVE: Force disable formatting on conflicting LSPs
+    -- This ensures ONLY null-ls handles the logic defined above.
+    local format_filter = { "vtsls", "svelte", "typescript-language-server" }
+    for _, name in ipairs(format_filter) do
+      if client.name == name then
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+      end
     end
 
-    vim.api.nvim_clear_autocmds({
-      group = augroup,
-      buffer = bufnr,
-    })
-
-    -- ✅ Format on save (ONLY null-ls exists now anyway)
-    vim.api.nvim_create_autocmd("BufWritePre", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        vim.lsp.buf.format({
-          bufnr = bufnr,
-          filter = function(c)
-            return c.name == "null-ls"
-          end,
-        })
-      end,
-    })
-
-    -- ✅ Auto save (safe)
-    vim.api.nvim_create_autocmd("InsertLeave", {
-      group = augroup,
-      buffer = bufnr,
-      callback = function()
-        if vim.bo.modifiable and vim.bo.modified then
-          vim.defer_fn(function()
-            if vim.bo.modified then
-              vim.cmd("silent! write")
-            end
-          end, AUTOSAVE_DELAY)
-        end
-      end,
-    })
+    -- Format on Save (0.11 Optimized)
+    if client.supports_method "textDocument/formatting" then
+      vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+      vim.api.nvim_create_autocmd("BufWritePre", {
+        group = augroup,
+        buffer = bufnr,
+        callback = function()
+          vim.lsp.buf.format {
+            bufnr = bufnr,
+            filter = function(c)
+              return c.name == "null-ls"
+            end,
+            timeout_ms = 2500, -- Svelte files with many components need extra time
+          }
+        end,
+      })
+    end
   end,
 }
 

@@ -18,14 +18,14 @@ return {
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "plugins.configs.lspconfig"
       require "nvchad.configs.lspconfig"
+      require "plugins.configs.lspconfig"
     end,
   },
 
   {
     "windwp/nvim-ts-autotag",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue" },
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
     config = function()
       require("nvim-ts-autotag").setup()
     end,
@@ -128,8 +128,8 @@ return {
         dependencies = "rafamadriz/friendly-snippets",
         opts = { history = true, updateevents = "TextChanged,TextChangedI" },
         config = function(_, opts)
-          require("luasnip").config.set_config(opts)
           require "nvchad.configs.luasnip"
+          require("luasnip").config.set_config(opts)
         end,
       },
     },
@@ -140,9 +140,12 @@ return {
     opts_extend = { "sources.default" },
   },
   {
-    "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
-    event = "InsertEnter",
-    config = require "plugins.configs.copilot-gp",
+    "nvim-svelte/nvim-svelte-snippets",
+    dependencies = "L3MON4D3/LuaSnip",
+    opts = {
+      enabled = true, -- Enable/disable snippets globally
+      auto_detect = true, -- Only load in SvelteKit projects
+      prefix = "kit", -- Prefix for TypeScript snippets (e.g., kit-load)
+    },
   },
 }
