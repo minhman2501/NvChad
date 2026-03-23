@@ -23,7 +23,7 @@ vim.lsp.config("*", {
 
 -- Tailwind override
 vim.lsp.config("tailwindcss", {
-  filetypes = { "javascriptreact", "typescriptreact" },
+  filetypes = { "javascriptreact", "typescriptreact", "svelte" },
 })
 
 -- ✅ vtsls override (important)
@@ -52,7 +52,7 @@ vim.lsp.config("vtsls", {
     "typescript",
     "javascriptreact",
     "typescriptreact",
-    "vue", -- ✅ important for Vue
+    "vue",
     "svelte",
   },
 })

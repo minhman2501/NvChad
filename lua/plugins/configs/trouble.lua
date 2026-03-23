@@ -10,7 +10,7 @@ local keys = {
     desc = "Diagnostics (Trouble)",
   },
   {
-    "<leader>xX",
+    "<S-t>",
     "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
     desc = "Buffer Diagnostics (Trouble)",
   },
