@@ -4,8 +4,7 @@ local config = function()
       enabled = false,
     },
     suggestion = {
-      enabled = true,
-      auto_trigger = true,
+      enabled = false,
     },
     filetypes = {
       javascript = true,

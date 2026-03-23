@@ -5,38 +5,39 @@ local opts = {
   snippets = { preset = "luasnip" },
   cmdline = { enabled = true },
   sources = {
-    default = { "lsp", "path", "snippets", "buffer" },
+    default = { "copilot", "lsp", "path", "snippets", "buffer" },
+    providers = {
+      copilot = {
+        module = "blink-copilot",
+        name = "copilot",
+        score_offset = 300,
+        async = true,
+      },
+    },
   },
   fuzzy = { implementation = "prefer_rust_with_warning" },
-
   keymap = { preset = "default" },
-
   appearance = {
-    use_nvim_cmp_as_default = true,
+    use_nvim_cmp_as_default = false,
     nerd_font_variant = "mono",
   },
-
   completion = {
+    completion = {
+      menu = {
+        draw = {
+          columns = {
+            { "kind_icon" },
+            { "label", "label_description", gap = 1 },
+          },
+        },
+      },
+    },
     documentation = {
       auto_show = true,
-      auto_show_delay_ms = 200,
+      auto_show_delay_ms = 100,
       window = { border = "single" },
     },
   },
 }
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuOpen",
-  callback = function()
-    vim.b.copilot_suggestion_hidden = true
-  end,
-})
-
-vim.api.nvim_create_autocmd("User", {
-  pattern = "BlinkCmpMenuClose",
-  callback = function()
-    vim.b.copilot_suggestion_hidden = false
-  end,
-})
 
 return opts
