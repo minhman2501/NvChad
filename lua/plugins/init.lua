@@ -66,7 +66,7 @@ return {
 
   {
     "windwp/nvim-ts-autotag",
-    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+    ft = { "javascript", "javascriptreact", "typescript", "typescriptreact", "svelte", "vue" },
     config = function()
       require("nvim-ts-autotag").setup()
     end,
@@ -90,7 +90,8 @@ return {
         "scss",
         "javascript",
         "typescript",
-        "tsx",
+        "javascriptreact",
+        "typescriptreact",
         "svelte",
         "python",
       }
@@ -191,5 +192,14 @@ return {
       return require "plugins.configs.blink"
     end,
     opts_extend = { "sources.default" },
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    requires = {
+      "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+    },
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = require "plugins.configs.copilot-gp",
   },
 }
