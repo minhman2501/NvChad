@@ -50,12 +50,6 @@ local opts = {
       auto_show = true,
       window = { border = "rounded" },
     },
-    ghost_text = {
-      enabled = true,
-      -- CRITICAL: This allows the multiline AI ghost text to stay
-      -- visible even when the LSP menu is open.
-      show_with_menu = true,
-    },
   },
 
   sources = {
