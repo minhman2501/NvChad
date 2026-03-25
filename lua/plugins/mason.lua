@@ -1,0 +1,18 @@
+return {
+  "williamboman/mason.nvim",
+  opts = {
+    ensure_installed = {
+      "tailwindcss-language-server",
+      "typescript-language-server",
+      "prettierd",
+      "eslint_d",
+      "vue-language-server",
+      "svelte-language-server",
+      "emmet-ls",
+      "pyright",
+      "django-template-lsp",
+      "pylint",
+      "copilot",
+    },
+  },
+}

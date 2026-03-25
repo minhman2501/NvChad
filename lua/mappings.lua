@@ -55,7 +55,6 @@ local mappings = {
     ["<leader>fo"] = { "<cmd>FzfLua oldfiles<CR>", "Find oldfiles (fzf)" },
     ["<leader>fz"] = { "<cmd>FzfLua lgrep_curbuf<CR>", "Find in current buffer (fzf)" },
     ["<leader>cm"] = { "<cmd>FzfLua git_commits<CR>", "Git commits (fzf)" },
-    ["<leader>gt"] = { "<cmd>FzfLua git_status<CR>", "Git status (fzf)" },
   },
 }
 

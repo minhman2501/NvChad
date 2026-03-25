@@ -13,4 +13,8 @@ opts.ensure_installed = {
   "svelte",
   "python",
 }
-return opts
+
+return {
+  "nvim-treesitter/nvim-treesitter",
+  opts = opts,
+}
