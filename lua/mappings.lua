@@ -40,6 +40,12 @@ local mappings = {
       end,
       "Buffer close",
     },
+    ["<C-A-q>"] = {
+      function()
+        tabufline.closeAllBufs(false)
+      end,
+      "Close all buffers except current",
+    },
 
     --Open LazyVim
     ["<leader>ll"] = { "<cmd>Lazy<cr>", "Open Lazy Vim" },
@@ -55,6 +61,10 @@ local mappings = {
     ["<leader>fo"] = { "<cmd>FzfLua oldfiles<CR>", "Find oldfiles (fzf)" },
     ["<leader>fz"] = { "<cmd>FzfLua lgrep_curbuf<CR>", "Find in current buffer (fzf)" },
     ["<leader>cm"] = { "<cmd>FzfLua git_commits<CR>", "Git commits (fzf)" },
+
+    -- Flyer (Replacing NvimTree)
+    ["<leader>e"] = { "<cmd>lua require('fyler').open({ kind = 'float' })<CR>", "Toggle Fyler Float" },
+    ["<C-n>"] = { "<cmd>lua require('fyler').open({ kind = 'float' })<CR>", "Toggle Fyler Float" },
   },
 }
 
