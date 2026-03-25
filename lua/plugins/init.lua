@@ -13,15 +13,12 @@ return {
       return require "plugins.configs.null-ls"
     end,
   },
-
   {
     "neovim/nvim-lspconfig",
     config = function()
-      require "nvchad.configs.lspconfig"
       require "plugins.configs.lspconfig"
     end,
   },
-
   {
     "windwp/nvim-ts-autotag",
     ft = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
@@ -29,34 +26,14 @@ return {
       require("nvim-ts-autotag").setup()
     end,
   },
-
   {
     "williamboman/mason.nvim",
     opts = require "plugins.configs.mason",
   },
-
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function()
-      local opts = require "nvchad.configs.treesitter"
-      opts.ensure_installed = {
-        "lua",
-        "css",
-        "html",
-        "json",
-        "vue",
-        "scss",
-        "javascript",
-        "typescript",
-        "javascriptreact",
-        "typescriptreact",
-        "svelte",
-        "python",
-      }
-      return opts
-    end,
+    opts = require "plugins.configs.nvim-treesitter",
   },
-
   {
     "kdheepak/lazygit.nvim",
     lazy = true,
@@ -77,26 +54,22 @@ return {
       { "<leader>gg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
-
   {
     "f-person/git-blame.nvim",
     -- load the plugin at startup
     event = "VeryLazy",
     opts = require "plugins.configs.gitblame",
   },
-
   {
     "folke/trouble.nvim",
     opts = {}, -- for default options, refer to the configuration section for custom setup.
     cmd = "Trouble",
     keys = require "plugins.configs.trouble",
   },
-
   {
     "christoomey/vim-tmux-navigator",
     lazy = false,
   },
-
   {
     "kylechui/nvim-surround",
     version = "*", -- Use for stability; omit to use `main` branch for the latest features
@@ -105,7 +78,6 @@ return {
       require("nvim-surround").setup {}
     end,
   },
-
   {
     "roobert/tailwindcss-colorizer-cmp.nvim",
     -- optionally, override the default options:
@@ -141,10 +113,6 @@ return {
   {
     "nvim-svelte/nvim-svelte-snippets",
     dependencies = "L3MON4D3/LuaSnip",
-    opts = {
-      enabled = true, -- Enable/disable snippets globally
-      auto_detect = true, -- Only load in SvelteKit projects
-      prefix = "kit", -- Prefix for TypeScript snippets (e.g., kit-load)
-    },
+    opts = require "plugins.configs.nvim-svelte-snippets",
   },
 }
