@@ -46,6 +46,16 @@ local mappings = {
 
     --Open LazyVim
     ["<leader>lm"] = { "<cmd>Mason<cr>", "Open Mason" },
+
+    -- fzf-lua (Replacing Telescope)
+    ["<leader>ff"] = { "<cmd>FzfLua files<CR>", "Find files (fzf)" },
+    ["<leader>fa"] = { "<cmd>FzfLua files resume=true<CR>", "Find all files (fzf)" },
+    ["<leader>fw"] = { "<cmd>FzfLua live_grep<CR>", "Live grep (fzf)" },
+    ["<leader>fh"] = { "<cmd>FzfLua help_tags<CR>", "Help page (fzf)" },
+    ["<leader>fo"] = { "<cmd>FzfLua oldfiles<CR>", "Find oldfiles (fzf)" },
+    ["<leader>fz"] = { "<cmd>FzfLua lgrep_curbuf<CR>", "Find in current buffer (fzf)" },
+    ["<leader>cm"] = { "<cmd>FzfLua git_commits<CR>", "Git commits (fzf)" },
+    ["<leader>gt"] = { "<cmd>FzfLua git_status<CR>", "Git status (fzf)" },
   },
 }
 

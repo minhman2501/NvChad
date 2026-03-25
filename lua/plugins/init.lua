@@ -115,4 +115,16 @@ return {
     dependencies = "L3MON4D3/LuaSnip",
     opts = require "plugins.configs.nvim-svelte-snippets",
   },
+  {
+    "nvim-telescope/telescope.nvim",
+    enabled = false,
+  },
+  {
+    "ibhagwan/fzf-lua",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    cmd = "FzfLua",
+    config = function(_, opts)
+      require("fzf-lua").setup(opts)
+    end,
+  },
 }
