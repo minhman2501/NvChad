@@ -40,6 +40,12 @@ local mappings = {
       end,
       "Buffer close",
     },
+
+    --Open LazyVim
+    ["<leader>ll"] = { "<cmd>Lazy<cr>", "Open Lazy Vim" },
+
+    --Open LazyVim
+    ["<leader>lm"] = { "<cmd>Mason<cr>", "Open Mason" },
   },
 }
 
