@@ -9,8 +9,8 @@ local tabufline = require "nvchad.tabufline"
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
 
--- del("n", "<Tab>")
--- del("n", "<S-Tab>")
+del("n", "<Tab>")
+del("n", "<S-Tab>")
 del("n", "<leader>x")
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
