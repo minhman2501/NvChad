@@ -50,8 +50,11 @@ local mappings = {
     --Open LazyVim
     ["<leader>ll"] = { "<cmd>Lazy<cr>", "Open Lazy Vim" },
 
-    --Open LazyVim
+    --Open Mason
     ["<leader>lm"] = { "<cmd>Mason<cr>", "Open Mason" },
+
+    --Open LspInfo
+    ["<leader>li"] = { "<cmd>LspInfo<cr>", "Open Language Server Info" },
 
     -- fzf-lua (Replacing Telescope)
     ["<leader>ff"] = { "<cmd>FzfLua files<CR>", "Find files (fzf)" },
