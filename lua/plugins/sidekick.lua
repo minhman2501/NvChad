@@ -3,58 +3,34 @@ return {
   opts = {},
   keys = {
     {
-      "<c-.>",
+      "<leader>af",
       function()
-        require("sidekick.cli").focus()
+        require("sidekick.cli").focus { name = "copilot" }
       end,
       desc = "Sidekick Focus",
       mode = { "n", "t", "i", "x" },
     },
     {
-      "<leader>aa",
+      "<leader>ac",
       function()
-        require("sidekick.cli").toggle()
+        require("sidekick.cli").toggle { name = "copilot", focus = true }
       end,
-      desc = "Sidekick Toggle CLI",
-    },
-    {
-      "<leader>as",
-      function()
-        require("sidekick.cli").select()
-      end,
-      -- Or to select only installed tools:
-      -- require("sidekick.cli").select({ filter = { installed = true } })
-      desc = "Select CLI",
+      desc = "Sidekick Toggle Copilot",
     },
     {
       "<leader>ad",
       function()
         require("sidekick.cli").close()
       end,
-      desc = "Detach a CLI Session",
-    },
-    {
-      "<leader>at",
-      function()
-        require("sidekick.cli").send { msg = "{this}" }
-      end,
-      mode = { "x", "n" },
-      desc = "Send This",
-    },
-    {
-      "<leader>af",
-      function()
-        require("sidekick.cli").send { msg = "{file}" }
-      end,
-      desc = "Send File",
+      desc = "Sidekick Detach Session",
     },
     {
       "<leader>av",
       function()
-        require("sidekick.cli").send { msg = "{selection}" }
+        require("sidekick.cli").send { name = "copilot", msg = "{selection}" }
       end,
       mode = { "x" },
-      desc = "Send Visual Selection",
+      desc = "Sidekick Send Selection",
     },
     {
       "<leader>ap",
@@ -63,14 +39,6 @@ return {
       end,
       mode = { "n", "x" },
       desc = "Sidekick Select Prompt",
-    },
-    -- Example of a keybinding to open Claude directly
-    {
-      "<leader>ac",
-      function()
-        require("sidekick.cli").toggle { name = "copilot", focus = true }
-      end,
-      desc = "Sidekick Toggle Claude",
     },
   },
 }
