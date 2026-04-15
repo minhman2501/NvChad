@@ -86,7 +86,15 @@ return {
 
       keymap = {
         preset = "enter",
-        ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+        -- Priority: blink menu → snippet → sidekick NES → raw tab
+        ["<Tab>"] = {
+          "select_next",
+          "snippet_forward",
+          function(_cmp)
+            return require("sidekick").nes_jump_or_apply()
+          end,
+          "fallback",
+        },
         ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
       },
     },
