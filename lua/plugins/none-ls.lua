@@ -19,6 +19,7 @@ return {
       "prettier.config.cjs",
     }
     local ESLINT_CONFIGS = {
+      ".eslintrc",
       ".eslintrc.js",
       ".eslintrc.cjs",
       ".eslintrc.json",
@@ -27,6 +28,7 @@ return {
       "eslint.config.js",
       "eslint.config.mjs",
       "eslint.config.cjs",
+      "eslint.config.ts",
     }
 
     null_ls.setup {

@@ -8,7 +8,6 @@ return {
     event = "InsertEnter",
     dependencies = {
       "rafamadriz/friendly-snippets",
-      "fang2hou/blink-copilot",
       {
         -- snippet plugin
         "L3MON4D3/LuaSnip",
@@ -44,11 +43,6 @@ return {
               kind_icon = {
                 ellipsis = false,
                 text = function(ctx)
-                  -- Safer module loading to prevent "module not found" crashes
-                  local status, tailwind = pcall(require, "blink.cmp.completion.windows.render.tailwind")
-                  if status and tailwind.get_hex_color(ctx.item) then
-                    return "󱓻 "
-                  end
                   return ctx.kind_icon .. ctx.icon_gap
                 end,
                 highlight = function(ctx)
@@ -73,29 +67,11 @@ return {
       },
 
       sources = {
-        default = { "lsp", "copilot", "path", "snippets", "buffer" },
-        providers = {
-          copilot = {
-            module = "blink-copilot",
-            name = "copilot",
-            score_offset = 100,
-            async = true,
-          },
-        },
+        default = { "lsp", "buffer", "path", "snippets" },
       },
 
       keymap = {
         preset = "enter",
-        -- Priority: blink menu → snippet → sidekick NES → raw tab
-        ["<Tab>"] = {
-          "select_next",
-          "snippet_forward",
-          function(_cmp)
-            return require("sidekick").nes_jump_or_apply()
-          end,
-          "fallback",
-        },
-        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
       },
     },
     opts_extend = { "sources.default" },

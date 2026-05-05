@@ -1,3 +1,5 @@
+local agent_name = "copilot"
+
 return {
   "folke/sidekick.nvim",
   opts = {},
@@ -5,7 +7,7 @@ return {
     {
       "<leader>af",
       function()
-        require("sidekick.cli").focus { name = "copilot" }
+        require("sidekick.cli").focus { name = agent_name }
       end,
       desc = "Sidekick Focus",
       mode = { "n", "t", "i", "x" },
@@ -13,7 +15,7 @@ return {
     {
       "<leader>ac",
       function()
-        require("sidekick.cli").toggle { name = "copilot", focus = true }
+        require("sidekick.cli").toggle { name = agent_name, focus = true }
       end,
       desc = "Sidekick Toggle Copilot",
     },
@@ -27,7 +29,7 @@ return {
     {
       "<leader>av",
       function()
-        require("sidekick.cli").send { name = "copilot", msg = "{selection}" }
+        require("sidekick.cli").send { name = agent_name, msg = "{selection}" }
       end,
       mode = { "x" },
       desc = "Sidekick Send Selection",
